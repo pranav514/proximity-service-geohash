@@ -4,14 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const businessRoute_1 = __importDefault(require("./routes/businessRoute"));
+const proximityRoute_1 = __importDefault(require("./routes/proximityRoute"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-const ngeohash_1 = __importDefault(require("ngeohash"));
-app.post('/submit', (req, res) => {
-    const { lat, long } = req.body;
-    const hash = ngeohash_1.default.encode(lat, long, 12);
-    res.send(hash);
-});
+app.use('/api/v1', businessRoute_1.default);
+app.use('/api/v1', proximityRoute_1.default);
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
@@ -19,3 +17,4 @@ app.listen(3000, () => {
 // tes3wf2pw
 // tes3wf2pw5j4
 //  tes3wf2r6wuc
+// tek9080egjsf     
