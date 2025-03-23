@@ -26,6 +26,9 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     const hash = ngeohash_1.default.encode(parseFloat(latitude), parseFloat(longitude), 12);
     let subhash;
+    if (radius > 20) {
+        return res.status(400).send("Radius cannot be greater than 20");
+    }
     switch (radius) {
         case "0.5":
             subhash = hash.substring(0, 6);

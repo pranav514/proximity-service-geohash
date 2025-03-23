@@ -2,6 +2,7 @@ import express from "express"
 const router = express.Router();
 import ngeohash = require("ngeohash");
 import { prisma } from "../config";
+import { client } from "..";
 router.post("/business" , async (req , res) : Promise<any> => {
     const {name  , latitiude , longitude} = req.body;
     if(!name  || !latitiude || !longitude){
@@ -21,6 +22,7 @@ router.post("/business" , async (req , res) : Promise<any> => {
             businessId : business.id
         }
     })
+    await client.set(hash , business.id);
     return res.status(201).json({
         business,
         geohash
